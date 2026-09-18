@@ -18,6 +18,7 @@ MontePy Changelog
 * Added :func:`~montepy.Cell.is_mass_dens` as the logical complement of :func:`~montepy.Cell.is_atom_dens`, returning ``None`` when no density is set (:issue:`964`).
 * Added support for the ``in`` operator on comments, so a comment's text can be searched with e.g. ``"keyword" in comment`` (:issue:`185`).
 * Added :class:`~montepy.comments.CommentCollection`, now returned by ``comments`` and ``leading_comments``, so an object can be found by its comments with e.g. ``"keyword" in cell.comments``, or searched by regular expression with ``cell.comments.search`` (:issue:`185`).
+* Added :meth:`~montepy.numbered_object_collection.NumberedObjectCollection.get_by_comment` to find numbered objects by comment text or regular expression (:issue:`982`).
 
 **Bugs Fixed**
 
