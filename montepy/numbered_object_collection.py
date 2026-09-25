@@ -274,7 +274,7 @@ class NumberedObjectCollection(ABC):
 
         Parameters
         ----------
-        searcher : str or re.Pattern
+        searcher : str | re.Pattern
             A substring to search for, or a compiled regular expression.
 
         Returns
@@ -285,16 +285,11 @@ class NumberedObjectCollection(ABC):
         Raises
         ------
         TypeError
-            if ``searcher`` is not a string or a regex compiled from a string.
+            if ``searcher`` is not a string or a compiled regex.
         """
-        if isinstance(searcher, re.Pattern):
-            if not isinstance(searcher.pattern, str):
-                raise TypeError(
-                    f"searcher must be a str, or a pattern compiled from a str. {searcher} given."
-                )
-        elif not isinstance(searcher, str):
+        if not isinstance(searcher, (re.Pattern, str)):
             raise TypeError(
-                f"searcher must be a str, or a pattern compiled from a str. {searcher} given."
+                f"searcher must be a str, or a compiled pattern. {searcher} given."
             )
 
         for obj in self:

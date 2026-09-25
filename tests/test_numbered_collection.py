@@ -2,6 +2,7 @@
 import hypothesis
 from hypothesis import given, settings, strategies as st
 import copy
+from collections.abc import Generator
 import itertools as it
 import re
 
@@ -106,11 +107,16 @@ class TestNumberedObjectCollection:
     def test_get_by_comment(self):
         problem = montepy.read_input(os.path.join("tests", "inputs", "pin_cell.imcnp"))
 
-        by_text = list(problem.cells.get_by_comment("uranium rod"))
+        by_text_generator = problem.cells.get_by_comment("uranium rod")
+        assert isinstance(by_text_generator, Generator)
+        by_text = list(by_text_generator)
         assert by_text == [problem.cells[1]]
 
         by_regex = list(problem.cells.get_by_comment(re.compile(r"URANIUM", re.I)))
         assert by_regex == [problem.cells[1]]
+
+        by_bytes_regex = list(problem.cells.get_by_comment(re.compile(b"uranium")))
+        assert by_bytes_regex == [problem.cells[1]]
 
         assert list(problem.cells.get_by_comment("not present")) == []
 
